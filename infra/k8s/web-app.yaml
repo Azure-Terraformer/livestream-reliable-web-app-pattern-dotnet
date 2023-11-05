@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: relecloud-web-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: relecloud-web-app
+  template:
+    metadata:
+      labels:
+        app: relecloud-web-app
+    spec:
+      containers:
+      - name: relecloud-web-app-container
+        image: acrlsshareddev.azurecr.io/relecloud-web-app:2023.10.4
+        envFrom:
+        - configMapRef:
+            name: web-app-config
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: relecloud-web-app-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: relecloud-web-app
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-app-config
+data:
+  AzureAd__ClientId: "ed07613e-2c08-4be4-855a-60a4c986d446"
+  AzureAd__TenantId: "4d21d610-d7ef-413c-b647-f6f57aee320b"
+  App__AppConfig__Uri: "https://appcs-ls-infra-dev.azconfig.io"
+  App__AppConfig__ManagedIdentity: "526f565d-c109-4f6d-8416-0c37f31414d7"
+  App__RelecloudApi__BaseUri: "http://20.106.109.151"
