@@ -5,9 +5,11 @@
 
 ## January 15, 2024
 Issues on the show:
-- Docker installation in dev env
+- Docker installation in dev env was borked
+- Pull Request on GitHub requires Microsoft credentials login because my GitHub account is linked to the Microsoft ORG even though I am submitting a PR on a different GitHub organization's repo. Since my ARM-based Linux VM is not a Microsoft-managed device I need to perform Pull Requests from a managed device.
 
 Post-stream fixes:
 - Upgraded the Azure CLI v2.56.0
 - apt update / apt-upgrade
 - installed docker according to official [install guide](https://docs.docker.com/engine/install/ubuntu/)
+- Updated the AZURE_REGISTRY_PASSWORD with a new client secret for 'DOCKER DEV' Service Principal 
